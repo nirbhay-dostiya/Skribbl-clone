@@ -115,11 +115,11 @@ configure_nginx() {
 start_containers() {
   echo "==> Starting Docker containers..."
   cd "$APP_DIR"
-  docker compose -f docker-compose.prod.yml pull mysql 2>/dev/null || true
-  docker compose -f docker-compose.prod.yml build backend
-  docker compose -f docker-compose.prod.yml up -d
+  sudo docker compose -f docker-compose.prod.yml pull mysql 2>/dev/null || true
+  sudo docker compose -f docker-compose.prod.yml build backend
+  sudo docker compose -f docker-compose.prod.yml up -d
   echo "==> Containers started"
-  docker compose -f docker-compose.prod.yml ps
+  sudo docker compose -f docker-compose.prod.yml ps
 }
 
 ###############################################################################
