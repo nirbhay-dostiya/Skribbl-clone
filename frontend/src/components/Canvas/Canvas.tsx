@@ -132,7 +132,7 @@ const Canvas = forwardRef<CanvasHandle, CanvasProps>(
 
     // Track cursor position for custom brush cursor
     const [cursorPos, setCursorPos] = useState<{ x: number, y: number } | null>(null);
-    const cursorTimer = useRef<NodeJS.Timeout | null>(null);
+    const cursorTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const updateCursorPos = (e: React.MouseEvent | React.TouchEvent) => {
       if ('touches' in e) return; // Hide custom cursor for touch devices
