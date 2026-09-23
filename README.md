@@ -105,7 +105,7 @@ The frontend starts on **http://localhost:5173**
 
 ## 🎮 How to Play
 
-1. **Create a Room**: Go to `http://localhost:5173`, enter a nickname, configure settings, and click "Create Room".
+1. **Create a Room**: Go to [https://sbmteh.website](https://sbmteh.website) (or `http://localhost:5173` locally), enter a nickname, configure settings, and click "Create Room".
 2. **Share Code**: Share the 6-character room code with friends.
 3. **Join**: Friends enter the code and their nickname to join.
 4. **Start**: The host clicks "Start Game" (requires 2+ players).
