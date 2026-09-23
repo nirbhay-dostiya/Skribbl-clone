@@ -2,6 +2,8 @@
 
 A fully-functional, real-time multiplayer drawing and guessing game — a Skribbl.io clone built with **Java Spring Boot 3.x** on the backend and **React + TypeScript + Vite** on the frontend.
 
+🌟 **Live Demo:** [https://sbmteh.website](https://sbmteh.website)
+
 ---
 
 ## ✨ Features
@@ -163,12 +165,13 @@ spring:
 
 ---
 
-## 🔒 Security Notes
+## 🔒 Game Logic & Security Notes
 
+- **Word Matching:** All guess validation happens **server-side** in `GameService.processGuess()`. The matching logic is case-insensitive, trims whitespace, and can detect "close" guesses to encourage players.
 - The **secret word is never sent to non-drawing players** — only the hint (underscores) is broadcast.
-- All guess validation happens **server-side** in `GameService.processGuess()`.
 - The backend is the **sole source of truth** for scores, timer, and game phase.
-- Drawing events are **relayed through the server** (not peer-to-peer).
+- Drawing events are **relayed through the server** (not peer-to-peer) to ensure consistency across all clients.
+- **Canvas State:** When a new player joins mid-round, they receive the full drawing history so their canvas matches the drawer perfectly.
 
 ---
 
