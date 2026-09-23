@@ -1,0 +1,41 @@
+# ── Production profile — loaded when SPRING_PROFILES_ACTIVE=prod ──────────
+# All secrets come from environment variables injected by docker-compose.prod.yml
+# NEVER commit real passwords to git.
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:skribbl}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${DB_USER:skribbl}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5          # conservative for t2.micro (1 vCPU, 1 GB RAM)
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: update              # auto-creates tables; switch to validate after first run
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8080
+  # Trust the X-Forwarded-* headers from Nginx
+  forward-headers-strategy: native
+
+logging:
+  level:
+    com.skribbl: INFO               # less verbose than dev
+    org.springframework.web.socket: WARN
+    root: WARN
+
+skribbl:
+  game:
+    draw-time-seconds: 80
+    rounds: 3
+    words-per-choice: 3
+    max-players: 8
+    min-players: 2

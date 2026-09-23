@@ -1,0 +1,92 @@
+.word-hint-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  min-height: 56px;
+}
+
+.hint-status {
+  font-family: var(--font-game);
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.drawing-word {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawing-label {
+  font-family: var(--font-game);
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.secret-word {
+  font-family: var(--font-game);
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: var(--primary-light);
+  background: rgba(124, 58, 237, 0.15);
+  padding: 4px 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid rgba(124, 58, 237, 0.3);
+  letter-spacing: 2px;
+}
+
+.hint-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hint-label {
+  font-family: var(--font-game);
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.hint-letters {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hint-char {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-game);
+  font-weight: 900;
+  font-size: 1.5rem;
+  min-width: 24px;
+  padding-bottom: 2px;
+  border-bottom: 3px solid var(--primary-light);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+.hint-char.revealed {
+  color: var(--text-primary);
+  border-bottom-color: var(--success);
+  animation: bounceIn 0.3s ease;
+}
+
+.hint-char.space {
+  border-bottom: none;
+  min-width: 16px;
+}

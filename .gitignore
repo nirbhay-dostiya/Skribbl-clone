@@ -1,0 +1,14 @@
+# Secret files — NEVER commit these
+.env.prod
+.env.local
+*.env
+
+# Build artifacts
+backend/target/
+frontend/dist/
+frontend/node_modules/
+
+# IDE
+.idea/
+*.iml
+.DS_Store

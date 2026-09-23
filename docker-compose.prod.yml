@@ -1,0 +1,58 @@
+version: "3.9"
+
+# ── Production Docker Compose ─────────────────────────────────────────────
+# Usage on EC2:
+#   export MYSQL_PASSWORD=yourSecretPassword
+#   docker compose -f docker-compose.prod.yml up -d
+# ─────────────────────────────────────────────────────────────────────────
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: skribbl_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: skribbl
+      MYSQL_USER: skribbl
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - skribbl_net
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost",
+             "-u", "skribbl", "-p${MYSQL_PASSWORD}"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../Dockerfile.backend
+    image: skribbl-backend:latest
+    container_name: skribbl_backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: skribbl
+      DB_USER: skribbl
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "127.0.0.1:8080:8080"   # only accessible from localhost (Nginx proxies)
+    networks:
+      - skribbl_net
+
+networks:
+  skribbl_net:
+    driver: bridge
+
+volumes:
+  mysql_data:

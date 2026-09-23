@@ -1,0 +1,43 @@
+# ── GitHub Actions: Auto-deploy to AWS EC2 on push to main ───────────────
+#
+# Setup (one-time in GitHub):
+#   Settings → Secrets → Actions → New repository secret:
+#     EC2_HOST        = your EC2 public IP or domain
+#     EC2_USER        = ec2-user  (Amazon Linux) or ubuntu  (Ubuntu)
+#     EC2_SSH_KEY     = contents of your .pem private key file
+# ─────────────────────────────────────────────────────────────────────────
+
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host:     ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key:      ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /opt/skribbl
+            git fetch origin main
+            git reset --hard origin/main
+            # Rebuild frontend
+            cd frontend
+            npm ci --silent
+            npm run build
+            sudo rsync -a --delete dist/ /var/www/skribbl/
+            cd ..
+            # Rebuild and restart backend container
+            docker compose -f docker-compose.prod.yml build backend
+            docker compose -f docker-compose.prod.yml up -d --no-deps backend
+            sudo nginx -t && sudo systemctl reload nginx
+            echo "Deploy done at $(date)"

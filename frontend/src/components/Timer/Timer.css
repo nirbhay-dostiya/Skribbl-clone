@@ -1,0 +1,57 @@
+.timer-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 20px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.timer-container.urgent {
+  border-color: var(--warning);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.timer-container.critical {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+.timer-value {
+  font-family: var(--font-game);
+  font-weight: 900;
+  font-size: 1.4rem;
+  min-width: 36px;
+  text-align: center;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.urgent .timer-value { color: var(--warning); }
+.critical .timer-value { color: var(--danger); }
+
+.timer-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.timer-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), #34d399);
+  border-radius: var(--radius-full);
+  transition: width 1s linear;
+}
+
+.urgent .timer-bar-fill {
+  background: linear-gradient(90deg, var(--warning), #fbbf24);
+}
+
+.critical .timer-bar-fill {
+  background: linear-gradient(90deg, var(--danger), #f87171);
+}

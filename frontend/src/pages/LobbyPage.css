@@ -1,0 +1,254 @@
+.lobby-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  background: transparent;
+}
+
+.lobby-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lobby-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+.lobby-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.room-code-display {
+  text-align: center;
+}
+
+.room-code-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  font-family: var(--font-game);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.room-code-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 8px 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--primary-light);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+}
+
+.room-code-value:hover {
+  background: var(--bg-hover);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+}
+
+.copy-icon { font-size: 1rem; opacity: 0.7; }
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-game);
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.connected { background: var(--success); box-shadow: 0 0 6px var(--success); }
+.status-dot.disconnected { background: var(--danger); }
+
+/* Body layout */
+.lobby-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+}
+
+/* Players card */
+.players-card { }
+
+.card-title {
+  font-family: var(--font-game);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.player-row:not(.empty):hover {
+  border-color: var(--primary);
+  background: var(--bg-hover);
+}
+
+.player-row.empty {
+  opacity: 0.4;
+  border-style: dashed;
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-game);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.empty-avatar {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+}
+
+.player-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.player-name {
+  font-family: var(--font-game);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.waiting-host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  color: var(--text-secondary);
+  font-family: var(--font-game);
+  font-weight: 600;
+}
+
+/* Settings card */
+.settings-card { }
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.setting-label {
+  font-family: var(--font-game);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.setting-value {
+  font-family: var(--font-game);
+  font-weight: 800;
+  color: var(--primary-light);
+  font-size: 1rem;
+}
+
+.invite-section {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+.invite-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-family: var(--font-game);
+  font-weight: 600;
+}
+
+.invite-code {
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--accent);
+  padding: 16px;
+  background: var(--bg-surface);
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.invite-code:hover {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+@media (max-width: 700px) {
+  .lobby-body { grid-template-columns: 1fr; }
+  .lobby-header { flex-direction: column; align-items: center; }
+}
